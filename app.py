@@ -105,13 +105,26 @@ if st.button(labels["launch"]) and prompt:
         st.session_state.stats["video_calls"] += len(vids)
         st.session_state.stats["code_calls"] += len(codes)
 
-        try:
-            resp = requests.post("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1",
-                                 headers={"Authorization": f"Bearer {os.getenv('HF_TOKEN')}", "Content-Type": "application/json"},
-                                 json={"inputs": f"Synthétise : {all_results}"})
-            synthesis = resp.json()[0].get("generated_text", labels["synthesis_error"])
-        except:
-            synthesis = labels["synthesis_error"]
+try:
+    resp = requests.post(
+        "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1",
+        headers={
+            "Authorization": f"Bearer {os.getenv('HF_TOKEN')}",
+            "Content-Type": "application/json"
+        },
+        json={"inputs": f"Synthétise cette liste de résultats IA : {all_results}"}
+    )
+
+    response_data = resp.json()
+    if isinstance(response_data, list) and 'generated_text' in response_data[0]:
+        synthesis = response_data[0]['generated_text']
+    elif isinstance(response_data, dict) and 'generated_text' in response_data:
+        synthesis = response_data['generated_text']
+    else:
+        synthesis = labels["synthesis_error"]
+except Exception as e:
+    synthesis = f"{labels['synthesis_error']} ({str(e)})"
+
 
         translation = translate_text(synthesis, lang_code)
         st.success(labels["ready"])
