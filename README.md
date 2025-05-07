@@ -1,25 +1,23 @@
-# 🐙 OCTOPUS — Application IA Multi-Générative
+# OCTOPUS 🐙
 
-**OCTOPUS** interroge automatiquement plusieurs IA gratuites sans clé API (texte, image, vidéo, code) et synthétise les résultats via **Mistral 7B Instruct**.
+OCTOPUS est une application IA tout-en-un qui combine automatiquement plusieurs IA gratuites sans clé API pour générer du texte, du code, des images et des vidéos. Elle synthétise ensuite les meilleures réponses via Mistral 7B Instruct (Hugging Face).
 
-## 🚀 Fonctionnalités
+## Fonctionnalités
+- Génération multi-IA automatique
+- Synthèse des résultats avec Mistral 7B
+- Traduction automatique
+- Micro intégré (si disponible localement)
+- Interface multilingue 🇫🇷 🇬🇧 🇪🇸
+- Historique, favoris, statistiques, partage
 
-- Génération automatique multi-IA
-- Synthèse via Mistral 7B (Hugging Face)
-- Reconnaissance vocale + lecture vocale
-- Traduction automatique (français, anglais, espagnol)
-- Historique, favoris, statistiques
-- Interface moderne et intuitive
-
-## ⚙️ Utilisation locale
-
+## Lancement local
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## ☁️ Déploiement sur Streamlit Cloud
-
-1. Déposer les fichiers sur un dépôt GitHub
-2. Connecter votre GitHub à [Streamlit Cloud](https://share.streamlit.io)
-3. Ajouter le token `HF_TOKEN` comme variable d’environnement
+## Déploiement sur Streamlit Cloud
+1. Poussez ce repo sur GitHub
+2. Connectez Streamlit Cloud à ce dépôt
+3. Dans `Settings > Secrets`, ajoutez :
+   - `HF_TOKEN`: votre clé Hugging Face
